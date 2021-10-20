@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const TYPE = 'player'
+
 signal health_changed(health, max_health)
 signal death
 
@@ -76,8 +78,24 @@ func _physics_process(delta):
 	get_input()
 	
 
+#func damage():
+#	for i in get_slide_count():
+#		var collision = get_slide_collision(i)
+#		if collision.collider.is_in_group("hazard"):
+#			die()
+#
+
+func collision():
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision.is_in_group("hazard") :
+			print("AH")
+
+
+
 func die():
-	animationplayer.play("death")
+	if health <= 0:
+		pass
 	emit_signal("death")
 
 func damage():
@@ -87,10 +105,8 @@ func damage():
 		die()
 	#MAKE KNOCKBACK SHIT
 
-func knockback():
-	
-
-
+#func knockback():
+#	#knockback???
 
 
 
@@ -244,5 +260,3 @@ func knockback():
 #func die():
 #	queue_free()
 #	emit_signal("player_died")
-#
-#
